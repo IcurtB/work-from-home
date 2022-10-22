@@ -1,3 +1,4 @@
+export {API_URL, DATA_FORMATS} from './const'
 export {getToken, setToken, removeToken} from './local-storage'
-export {request} from './request'
-export {DATA_FORMATS} from './const'
+export {Path} from './path'
+export {request} from './utils'
