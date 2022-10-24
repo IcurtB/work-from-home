@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { UseFormReturn } from "react-hook-form"
 
-import { CommonReference, EmployeesDatasModel, TundukZagsDataByPin } from "../../models"
+import { CommonReference, TundukAddressByPinModel, TundukPasswordPhotoModel, TundukZagsDataByPinModel } from "../../models"
 import { Path, request } from "../../utils"
 
 type FormMethods = Pick<
@@ -22,10 +22,18 @@ export const useEmployeeSearch = ({form}: Props) => {
         setLoading(true)
         const pin = await getValues('inn')
 
-        const zags = await request<TundukZagsDataByPin, {pin: string}>('POST', Path.TundukURLs.zagsDatas, {body: {pin}})
-        const roles = await request('GET', Path.Role.getAll, {})
-        console.log(roles);
+        const zags = await request<TundukZagsDataByPinModel, {pin: string}>('POST', Path.TundukURLs.zagsDatas, {body: {pin}})
+        const address = await request<TundukAddressByPinModel, {pin: string}>('GET', Path.TundukURLs.address, {body: {pin: pin}})
+        const photo = await request<TundukPasswordPhotoModel, {pin: string}>('GET', Path.TundukURLs.lastPhoto, {body: {pin: pin}})
         
+        if(address) {
+          setValue('address', address.address)
+        }
+
+        if(photo) {
+          setValue('photo', photo.photo)
+        }
+
         if(zags) {
           const {gender: g} = zags
           const gender: CommonReference = {
@@ -35,7 +43,7 @@ export const useEmployeeSearch = ({form}: Props) => {
             type: g.type,
           }
           setValue('dateOfBirth', zags.dateOfBirth.toLocaleString())
-          // setValue('gender', gender)
+          setValue('gender', gender)
           setValue('name', zags.name)
           setValue('surname', zags.surname)
           setValue('patronymic', zags?.patronymic)

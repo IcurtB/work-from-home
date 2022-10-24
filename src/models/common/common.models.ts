@@ -27,3 +27,14 @@ export type PageFilterResponseModel = {
   totalElements: number,
   totalPages: number
 }
+
+export type RolesResponseModel = {
+  id: number,
+  code: string,
+  roadmaps: RoadmapsResponseModel[]
+}
+
+type RoadmapsResponseModel = {
+  id: number,
+  actionType: string
+}

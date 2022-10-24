@@ -9,6 +9,8 @@ export class Path {
     }
     static TundukURLs = class {
       static zagsDatas = baseV1('tunduk/zags-data-by-pin')
+      static address = baseV1('tunduk/asb-address')
+      static lastPhoto = baseV1('tunduk/passport-last-photo-by-pin')
     }
     static CommonReference = class {
       static search = baseV1('common-references/search')

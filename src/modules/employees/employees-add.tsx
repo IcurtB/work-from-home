@@ -1,22 +1,22 @@
-import { useForm } from 'react-hook-form'
+import { FieldValues, useForm } from 'react-hook-form'
 import {useTranslation} from 'react-i18next'
 import {yupResolver} from '@hookform/resolvers/yup'
-import { Box, Button, Grid } from '@mui/material'
+import { Avatar, Box, Button, Grid } from '@mui/material'
 import * as yup from 'yup'
 
-import { AutocompleteField, SearchField,SearchFieldByCode } from '../../components'
+import { SearchField,SearchFieldByCode, SearchFieldRoles } from '../../components'
 import { createActionRenderField } from '../../helpers'
 
 import {useEmployeeSearch} from './index'
 
 export const EmployeesAdd = () => {
   const form = useForm({resolver: yupResolver(schema)})
-  const {control, formState, handleSubmit} = form
+  const {control, formState, handleSubmit, register, getValues} = form
   const {errors} = formState
   const {t} = useTranslation()
   const {search, loading} = useEmployeeSearch({form})
   const renderField = createActionRenderField({control, formState})
-  
+  const photo = getValues('photo')
   const renderInput = [
     {
       name: 'surname',
@@ -58,13 +58,13 @@ export const EmployeesAdd = () => {
     },
   ]
 
-  const onSubmit = (formData: any) => {
+  const onSubmit = (formData: FieldValues) => {
     console.log(formData);
-    
   }
 
   return (
     <Box component='form' onSubmit={handleSubmit(onSubmit)}>
+      <input type='hidden' {...register('photo')} />
       <SearchFieldByCode
         control={control}
         loading={loading}
@@ -72,7 +72,7 @@ export const EmployeesAdd = () => {
         name='inn'
         label='inn'
         error={!!errors.inn}
-        // helperText={errors.inn?.message}
+        helperText={`${errors.inn?.message}`}
       />
       {renderInput.map(({colSpanMd, ...rest}) => {
         return (
@@ -81,12 +81,43 @@ export const EmployeesAdd = () => {
           </Grid>
         )
       })}
-      <SearchField multiple={true} form={form} registerName='gender' type='GENDER' />
+      <Avatar
+        src={`data:image;base64,${photo}`}
+        sx={{width: '75%', height: '100%', borderRadius: '3px', mr:'5px'}}
+      />
+      <SearchField
+        error={!!errors.gender}
+        helperText={`${errors.gender?.message ?? ''}`}
+        control={control}
+        registerName='gender'
+        type='GENDER' 
+        label='Gender'
+      />
+      <SearchFieldRoles
+        error={!!errors.roles}
+        helperText={`${errors.roles?.message ?? ''}`}
+        get='all'
+        control={control}
+        multiple
+        registerName='roles'
+        label='Roles'
+      />
+      <SearchFieldRoles
+        error={!!errors.role}
+        helperText={`${errors.role?.message ?? ''}`}
+        get='one'
+        control={control}
+        registerName='role'
+        label='Role'
+      />
       <Button type='submit'>submit</Button>
     </Box>
   )
 }
 
 const schema = yup.object({
-  inn: yup.string().required('req')
+  inn: yup.string().required('req'),
+  gender: yup.object().required('re').nullable(),
+  roles: yup.array().of(yup.string()).required('req').nullable(),
+  role: yup.string().required('req').nullable(),
 })
