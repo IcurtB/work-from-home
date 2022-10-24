@@ -9,3 +9,4 @@ export {
   SearchFieldByCode,
   PhoneField,
 } from './fields'
+export {Breadcrumbs} from './breadcrumbs'

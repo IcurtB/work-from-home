@@ -11,3 +11,6 @@ declare type PrimitiveValue =
 declare type AnyValue = PrimitiveValue | Date | AnyValue[]
 
 declare type AnyShape = Record<string, AnyValue | AnyShape>
+
+declare module '*.jpg'
+declare module '*.png'
