@@ -1,8 +1,8 @@
 import axios, {AxiosError, Method} from 'axios'
 
-// import { generateMessage } from 'src/helpers'
-import {store} from '../store'
-import {getToken} from '../utils'
+import { generateNotyfy } from 'src/helpers'
+import {store} from 'src/store'
+import {getToken} from 'src/utils'
 
 interface RequestData<K> {
   body?: K,
@@ -16,6 +16,7 @@ export const request = async <T, K = never>(
   withCredentials = true
 ) => {
   try {
+    generateNotyfy({message: 'loading...', type: 'info', autoClose: 1000})
     const res = await axios.request<T>({
       method,
       url,
@@ -29,8 +30,8 @@ export const request = async <T, K = never>(
     return res.data
   } catch (err) {
     const error = err as AxiosError
-    // TODO: поменять на ошибку сервера
-    // generateMessage({message: 'Повторите попытку', type: 'error', id: url})
+    
+    generateNotyfy({message: error.message, type: 'error', id: url})
     if (error.response?.status === 403) {
       store.dispatch({
         type: 'user/sign-out'

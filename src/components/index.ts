@@ -8,5 +8,6 @@ export {
   InputField,
   SearchFieldByCode,
   PhoneField,
+  SearchField
 } from './fields'
 export {Breadcrumbs} from './breadcrumbs'

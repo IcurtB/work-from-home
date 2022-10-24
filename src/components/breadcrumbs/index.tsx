@@ -12,13 +12,8 @@ export const Breadcrumbs = () => {
   const routes = location.pathname.split('/')
   return (
     <MuiBreadcrumbs sx={styles.whiteBold}>
-      <MuiLink
-        underline='hover'
-        component={Link}
-        to='/employees'
-        sx={styles.center}
-      >
-        home
+      <MuiLink underline='hover' component={Link} to={'/'} sx={styles.center}>
+        home 
       </MuiLink>
       {routes.map((value, index, routesArray) => {
         if (!value) return undefined
@@ -26,7 +21,7 @@ export const Breadcrumbs = () => {
         if (index === routesArray.length - 1)
           return (
             <Typography sx={styles.forTypo} key={value}>
-              asdasdads
+              {value}
             </Typography>
           )
 
@@ -40,8 +35,7 @@ export const Breadcrumbs = () => {
             sx={styles.whiteBold}
             key={value}
           >
-            asdasd
-            {/* <Trans id={withNamespace(value)} /> */}
+            {value}
           </MuiLink>
         )
       })}
@@ -58,13 +52,14 @@ const styles = {
   forTypo: {
     textTransform: 'capitalize',
     color: deepOrange[700],
-    fontWeight: '700',
+    fontWeight: '500',
+    fontSize: '16px',
   },
   center: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // color: 'white',
-    fontWeight: 'bold',
+    fontSize: '16px',
+    fontWeight: '500',
   },
 }

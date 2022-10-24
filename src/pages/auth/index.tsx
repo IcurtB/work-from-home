@@ -3,20 +3,16 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import LoginIcon from '@mui/icons-material/Login'
 import {Box, Button, Stack, Typography as MuiP} from '@mui/material'
 import {grey} from '@mui/material/colors'
-import {object, SchemaOf, string} from 'yup'
+import {object, string} from 'yup'
 
 import {useActions} from 'src/hooks'
-import licensed from 'src/assets/image/licensed-image.jpg'
+import {licensed} from 'src/assets'
 import {InputField} from 'src/components'
 import {UserLoginRequestDto, UserLoginResponseModel} from 'src/models'
 import {userMeAction} from 'src/store'
 import {Path, request, setToken} from 'src/utils'
 
-interface ILogin {
-  password: string
-  inn: string
-}
-export const Login = () => {
+export const LoginPage = () => {
   const {getMe} = useActions({getMe: userMeAction})
   const form = useForm({resolver: yupResolver(schema)})
   const {
@@ -36,14 +32,16 @@ export const Login = () => {
     if (res?.authenticationToken) {
       setToken(res.authenticationToken || '', 'accessToken')
       setToken(res.refreshToken || '', 'refreshToken')
+      getMe()
     }
-    getMe()
   }
 
   return (
     <Box sx={style.stack}>
       <Stack direction='row' sx={{height: '100vh'}}>
-        <Box sx={[style.box, style.image]}></Box>
+        <Box sx={[style.box, style.image]}>
+          <Box sx={style.hoverPage}></Box>
+        </Box>
         <Box sx={[style.box, style.center]}>
           <Box
             component='main'
@@ -119,9 +117,14 @@ const style = {
     alignItems: 'center',
     flexDirection: 'column',
   },
+  hoverPage: {
+    backgroundColor: "rgba(0, 0, 0, 0.375)",
+    width: '100%',
+    height: '100%'
+  }
 }
 
-const schema: SchemaOf<ILogin> = object().shape({
+const schema = object().shape({
   inn: string().required('Это обязательное поле!'),
   password: string().required('Это обязательное поле!').min(3),
 })

@@ -1,15 +1,24 @@
-import {useEffect, useState} from 'react'
-import {useLocation, Link} from 'react-router-dom'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import {Box, Button, Stack, Toolbar, Link as MuiLink} from '@mui/material'
+import {useEffect, useMemo, useState} from 'react'
+import {useTranslation} from 'react-i18next'
+import {Link, useLocation} from 'react-router-dom'
+import {Button, Link as MuiLink, Stack} from '@mui/material'
 
 import {useActions} from 'src/hooks'
 import {userSignOutAction} from 'src/store/auth'
+
+import {ROUTES} from '../../routeConfig'
+
+import {ChangeLang} from './change-lang'
 
 export const NavBar = () => {
   const [renderNav, setRenderNav] = useState(false)
   const {signOut} = useActions({signOut: userSignOutAction})
   const location = useLocation()
+
+  const {t} = useTranslation()
+
+  const links = useMemo(() => ROUTES.filter((i) => i.display), [])
+
   const logOut = () => {
     signOut()
   }
@@ -23,57 +32,20 @@ export const NavBar = () => {
       {renderNav ? (
         <Stack direction='row' sx={styles.boxGrid}>
           <Stack direction='row' spacing='16px'>
-            <MuiLink
-              underline='hover'
-              component={Link}
-              to='/employees'
-              sx={styles.center}
-            >
-              <AccountCircleIcon /> Сотрудники
-            </MuiLink>
-            <MuiLink
-              underline='hover'
-              component={Link}
-              to='/employees'
-              sx={styles.center}
-            >
-              <AccountCircleIcon /> Сотрудники
-            </MuiLink>
-            <MuiLink
-              underline='hover'
-              component={Link}
-              to='/employees'
-              sx={styles.center}
-            >
-              <AccountCircleIcon /> Сотрудники
-            </MuiLink>
-            <MuiLink
-              underline='hover'
-              component={Link}
-              to='/employees'
-              sx={styles.center}
-            >
-              <AccountCircleIcon /> Сотрудники
-            </MuiLink>
-            <MuiLink
-              underline='hover'
-              component={Link}
-              to='/employees'
-              sx={styles.center}
-            >
-              <AccountCircleIcon /> Сотрудники
-            </MuiLink>
-            <MuiLink
-              underline='hover'
-              component={Link}
-              to='/employees'
-              sx={styles.center}
-            >
-              <AccountCircleIcon /> Сотрудники
-            </MuiLink>
+            {links.map((i) => (
+              <MuiLink
+                to={i.path}
+                key={i.path}
+                underline='hover'
+                component={Link}
+                sx={styles.center}
+              >
+                {i.logo} {i.title}
+              </MuiLink>
+            ))}
           </Stack>
-          <Stack direction='row' spacing='16px' mx='16px'>
-            <Button variant='outlined'>Перевод</Button>
+          <Stack direction='row' spacing='16px' alignItems='center' mx='16px'>
+            <ChangeLang />
             <Button variant='outlined' onClick={logOut}>
               logout
             </Button>
@@ -102,6 +74,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     color: 'white',
-    fontWeight: 'bold'
+    fontWeight: '500',
+    fontSize: '0.85rem',
   },
 }

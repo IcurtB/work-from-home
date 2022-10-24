@@ -1,9 +1,14 @@
-import {Navigate, Route, Routes, useLocation} from 'react-router-dom'
+import 'react-toastify/dist/ReactToastify.css'
 
-import {useAppSelector} from './hooks'
-import {Layout} from './layout'
-import {ROUTES} from './routeConfig'
-import {getToken} from './utils'
+import {Navigate, Route, Routes, useLocation} from 'react-router-dom'
+import {ToastContainer} from 'react-toastify'
+import {LocalizationProvider} from '@mui/x-date-pickers'
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+
+import {useAppSelector} from 'src/hooks'
+import {Layout} from 'src/layout'
+import {ROUTES} from 'src/routeConfig'
+import {getToken} from 'src/utils'
 
 function App() {
   const token = getToken('accessToken')
@@ -28,11 +33,12 @@ function App() {
   }
 
   return (
-    <>
-      <Layout>
+    <Layout>
+      <ToastContainer />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Routes>{routes}</Routes>
-      </Layout>
-    </>
+      </LocalizationProvider>
+    </Layout>
   )
 }
 

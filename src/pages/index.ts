@@ -1,2 +1,3 @@
 export {HomePage} from './home'
-export {Login} from './auth'
+export {LoginPage} from './auth'
+export {EmployeesPage} from './employees'

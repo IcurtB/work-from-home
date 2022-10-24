@@ -59,7 +59,7 @@ type Props<E> = {
   onClickRow?: (value: E) => void
 }
 
-export function AppTable<Entity extends { id?: number }>({
+export function AppTable<Entity>({
  headCells,
  list,
  totalCount = 0,
@@ -99,7 +99,7 @@ export function AppTable<Entity extends { id?: number }>({
           <TableBody>
             {list?.length > 0 ? (
               list.map((row, idx) => (
-                <StyledTableRow key={row?.id || idx} onClick={() => onClickRow && onClickRow(row)}>
+                <StyledTableRow key={idx} onClick={() => onClickRow && onClickRow(row)}>
                   {headCells.map((cell) => (
                     <StyledTableCell key={typeof cell.label === 'string' ? cell.label : idx}>
                       {cell.render?.({entity: row, rowIdx: idx})}
@@ -119,7 +119,7 @@ export function AppTable<Entity extends { id?: number }>({
             )}
             {extraRow && extraRow?.length > 0 && (
               extraRow?.map((row, idx) => (
-                <StyledTableRow key={row?.id || idx}>
+                <StyledTableRow key={idx}>
                   {headCells.map((cell) => (
                     <StyledTableCell key={typeof cell.label === 'string' ? cell.label : idx}>
                       {cell.render?.({entity: row, fontWeight: 'bold', extraRow: true})}

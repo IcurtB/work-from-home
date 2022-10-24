@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Box} from '@mui/material'
+import grey from '@mui/material/colors/grey'
 
+import {notaryPublic} from 'src/assets'
 import {Breadcrumbs, NavBar} from 'src/components'
 
 interface IProps {
@@ -8,24 +10,32 @@ interface IProps {
 }
 
 export const Layout = ({children}: IProps) => {
+  const [renderNav, setRenderNav] = useState(false)
+  useEffect(() => {
+    setRenderNav(!location.pathname.includes('auth'))
+  }, [location.pathname])
   return (
-    <Box>
-      <NavBar />
-      <Box component={'header'} sx={style.box}></Box>
-      <Box component={'nav'} ml='25px' mt='-75px'>
-        <Breadcrumbs />
-      </Box>
+    <>
+      {renderNav && (
+        <>
+          <NavBar />
+          <Box component={'header'} sx={style.box}></Box>
+          <Box component={'nav'} ml='25px' mt='-75px'>
+            <Breadcrumbs />
+          </Box>
+        </>
+      )}
       <Box component={'main'} sx={{minHeight: '100%'}}>
-        <Box sx={style.main}>{children}</Box>
+        <Box sx={renderNav ? style.main : {}}>{children}</Box>
       </Box>
-    </Box>
+    </>
   )
 }
 
 const style = {
   box: {
     height: '180px',
-    backgroundImage: "url('notary-public.png')",
+    backgroundImage: `url(${notaryPublic})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100%',
     backgroundPositionY: '35%',
@@ -37,7 +47,7 @@ const style = {
     backgroundColor: 'white',
     borderRadius: '8px',
     padding: '25px',
-    height: 'calc(100vh - 180px)',
+    minHeight: 'calc(100vh - 180px)',
   },
   forBoxT: {
     gridRowEnd: '4',
@@ -51,4 +61,5 @@ const style = {
     letterSpacing: '1px',
     fontSize: '14px',
   },
+  
 }
