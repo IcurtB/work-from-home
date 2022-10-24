@@ -16,7 +16,7 @@ export const request = async <T, K = never>(
   withCredentials = true
 ) => {
   try {
-    generateNotyfy({message: 'loading...', type: 'info', autoClose: 1000})
+    // generateNotyfy({message: 'loading...', type: 'info', autoClose: 1000})
     const res = await axios.request<T>({
       method,
       url,

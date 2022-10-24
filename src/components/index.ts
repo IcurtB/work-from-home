@@ -8,5 +8,6 @@ export {
   InputField,
   SearchFieldByCode,
   PhoneField,
-  SearchField
+  SearchField,
+  SearchFieldRoles
 } from './fields'
