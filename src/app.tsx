@@ -1,4 +1,9 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 
 // eslint-disable-next-line no-restricted-imports
 import { useAppSelector } from './hooks';
@@ -22,12 +27,15 @@ function App() {
   if(user?.user?.inn && location.pathname.includes('auth') && user.loaded && !user.loading) {
     return <Navigate to='/'/>
   }
-
+  
   return (
     <Layout>
-      <Routes>
-        {routes}
-      </Routes>
+      <ToastContainer />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Routes>
+          {routes}
+        </Routes>
+      </LocalizationProvider>
     </Layout>
   );
 }

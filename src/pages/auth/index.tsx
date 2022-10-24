@@ -7,7 +7,7 @@ import { userMeAction } from '../../store'
 import { request, setToken } from '../../utils'
 import { Path } from '../../utils/path'
 
-export const Login = () => {
+export const LoginPage = () => {
   const {getMe} = useActions({getMe: userMeAction})
   const form = useForm()
   const {register, handleSubmit} = form
@@ -19,8 +19,8 @@ export const Login = () => {
     if(res?.authenticationToken) {      
       setToken(res.authenticationToken || '', 'accessToken')
       setToken(res.refreshToken || '', 'refreshToken')
+      getMe()
     }
-    getMe()
   }
 
   return (
