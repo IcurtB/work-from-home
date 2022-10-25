@@ -6,6 +6,7 @@ import {
   EmployeesPage,
   HomePage,
   LoginPage,
+  NotaryContollerPage
 } from 'src/pages'
 
 export interface IRoutes {
@@ -47,5 +48,12 @@ export const ROUTES: ReadonlyArray<IRoutes> = [
     display: true,
     permissions: [],
     logo: <FolderIcon/>
+  },
+  {
+    path: '/notaries',
+    page: <NotaryContollerPage />,
+    title: 'notaries',
+    display: true,
+    permissions: [],
   },
 ]

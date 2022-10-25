@@ -23,4 +23,9 @@ export class Path {
     static Employees = class {
       static searh = baseV1('employees/search')
     }
+    static Notary = class {
+      static search = baseV1('notaries/search')
+      static option = (id: number) => baseV1(`notaries/${id}`)
+      static add = baseV1('notaries')
+    }
 }

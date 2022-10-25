@@ -1,50 +1,53 @@
 export type CommonReference = {
+  id: number
+  parentId: number | null
+  title: string
+  type: {
+    code: string
+    editable: boolean
     id: number
-    parentId: number | null
     title: string
-    type: {
-      code: string
-      editable: boolean
-      id: number
-      title: string
-    }
+  }
 }
 
 export type PageRequestModel = {
-  limit: number,
+  limit: number
   page: number
 }
 
 export type PageSortingModel = {
-  sortBy: string,
+  sortBy: string
   sortDirection: string
 }
 export type FilterModel = {
-  parentId?: number,
-  title?: string,
-  typeCode?: string,
-  typeId?: number,
+  parentId?: number
+  title?: string
+  typeCode?: string
+  typeId?: number
 }
-export type FilterCommonReferenceModel = {
-  filter: FilterModel,
-  pageRequest:PageRequestModel,
-  sorting: PageSortingModel
+export type FilterCommonReferenceModel = SearchModel<FilterModel>
 
+export type SearchModel<Shape extends AnyShape> = {
+  filter: Shape
+  pageRequest: PageRequestModel
+  sorting: PageSortingModel
 }
-export type PageFilterResponseModel = {
-  content: CommonReference[],
-  numberOfElements: number,
-  page: number,
-  totalElements: number,
+export type SearchResponseModel<Shape extends AnyShape> = {
+  content: Shape[]
+  numberOfElements: number
+  page: number
+  totalElements: number
   totalPages: number
 }
+export type PageFilterResponseModel = SearchResponseModel<CommonReference>
+
 export type RolesResponseModel = {
-  id: number,
-  code: string,
+  id: number
+  code: string
   roadmaps: RoadmapsResponseModel[]
 }
 
 type RoadmapsResponseModel = {
-  id: number,
+  id: number
   actionType: string
 }

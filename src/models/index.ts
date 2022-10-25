@@ -5,7 +5,9 @@ export {
   type PageFilterResponseModel,
   type RolesResponseModel,
   type FilterCommonReferenceModel,
-  type FilterModel
+  type FilterModel,
+  type SearchModel,
+  type SearchResponseModel,
 } from './common/common.models'
 export {
   type EmployeesFilterResponseModel,
@@ -22,3 +24,8 @@ export {
   type TundukAddressByPinModel,
   type TundukPasswordPhotoModel,
 } from './tunduk/tunduk.models'
+export {
+  type NotaryFilterModel,
+  type NotaryResultModel,
+  type NotarySearchModel,
+} from './notary/notary.model'
