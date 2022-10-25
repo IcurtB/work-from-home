@@ -14,7 +14,6 @@ export const ChangeLang = () => {
   useEffect(() => {
     i18n.changeLanguage(lang)
   }, [lang, i18n])
-  console.log(lang)
   return (
     <Box>
       <FormControl variant='outlined'>

@@ -19,15 +19,25 @@ export type PageSortingModel = {
   sortBy: string,
   sortDirection: string
 }
+export type FilterModel = {
+  parentId?: number,
+  title?: string,
+  typeCode?: string,
+  typeId?: number,
+}
+export type FilterCommonReferenceModel = {
+  filter: FilterModel,
+  pageRequest:PageRequestModel,
+  sorting: PageSortingModel
 
+}
 export type PageFilterResponseModel = {
-  content: any[],
+  content: CommonReference[],
   numberOfElements: number,
   page: number,
   totalElements: number,
   totalPages: number
 }
-
 export type RolesResponseModel = {
   id: number,
   code: string,

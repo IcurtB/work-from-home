@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {Box} from '@mui/material'
-import grey from '@mui/material/colors/grey'
 
 import {notaryPublic} from 'src/assets'
 import {Breadcrumbs, NavBar} from 'src/components'
@@ -61,5 +60,4 @@ const style = {
     letterSpacing: '1px',
     fontSize: '14px',
   },
-  
 }

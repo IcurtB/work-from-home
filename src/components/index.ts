@@ -12,3 +12,5 @@ export {
   SearchFieldRoles
 } from './fields'
 export {Breadcrumbs} from './breadcrumbs'
+export {Modal} from './modal'
+export {Dashboard} from './dashboard'

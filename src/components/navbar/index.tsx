@@ -1,5 +1,4 @@
 import {useEffect, useMemo, useState} from 'react'
-import {useTranslation} from 'react-i18next'
 import {Link, useLocation} from 'react-router-dom'
 import {Button, Link as MuiLink, Stack} from '@mui/material'
 
@@ -14,8 +13,6 @@ export const NavBar = () => {
   const [renderNav, setRenderNav] = useState(false)
   const {signOut} = useActions({signOut: userSignOutAction})
   const location = useLocation()
-
-  const {t} = useTranslation()
 
   const links = useMemo(() => ROUTES.filter((i) => i.display), [])
 

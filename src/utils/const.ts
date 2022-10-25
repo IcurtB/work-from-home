@@ -1,5 +1,21 @@
 export const DATA_FORMATS = {
-    YYYY_MMM_DD_HH_MM: 'YYYY-MM-DD HH:mm',
-    YYYY_MM_DD: 'YYYY-MM-DD'
+  YYYY_MMM_DD_HH_MM: 'YYYY-MM-DD HH:mm',
+  YYYY_MM_DD: 'YYYY-MM-DD',
 }
 export const API_URL = 'http://10.145.82.23:8081'
+
+export const REFERENCE_TYPES = [
+  'NOTARY_TYPE',
+  'COUNTRY',
+  'REGION',
+  'DISTRICT',
+  'LOCAL_GOVERNMENT',
+  'NOTARY_ACTION_TYPE',
+  'GENDER',
+  'RANK',
+  'MARITAL_STATUS',
+  'DOCUMENT_TYPE',
+  'CLIENT_TYPE',
+  'ACTION_SIDE',
+  'NATIONALITY',
+]

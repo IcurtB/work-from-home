@@ -13,6 +13,8 @@ export class Path {
       static lastPhoto = baseV1('tunduk/passport-last-photo-by-pin')
     }
     static CommonReference = class {
+      static add = baseV1('common-references')
+      static option = (id: number) => baseV1(`common-references/${id}`)
       static search = baseV1('common-references/search')
     }
     static Role = class {
